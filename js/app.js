@@ -6,7 +6,6 @@ let emplyeesArray = [];
 
 let employeeCard = document.getElementById("employeeCard");
 
-
 function Employee(id, fullName, department, level, image) {
     this.id = id;
     this.fullName = fullName;
@@ -16,8 +15,25 @@ function Employee(id, fullName, department, level, image) {
     this.image = image;
 
     emplyeesArray.push(this);
-
+    saveToLocalStorage();
 }
+
+// Task09: Uncompleted Solve //
+function saveToLocalStorage() {
+    localStorage.setItem("employees", JSON.stringify(emplyeesArray)); 
+}
+
+function getLocalStorageData() {
+    let objectData = JSON.parse(localStorage.getItem("employees"));
+    if (objectData != null){
+        for (let i = 0; i < objectData.length; ++i) {
+            new Employee (objectData[i].id, objectData[i].fullName , objectData[i].department, objectData[i].level, objectData[i].image);
+        }
+    }
+    print();
+}
+// Uncompleted Solve //
+
 
 Employee.prototype.calculateSalary = function () {
 
@@ -71,14 +87,16 @@ Employee.prototype.render = function () {
     employeeCard.appendChild(card);
 }
 
-let ghaziSamer = new Employee("1000", "Ghazi Samer", departmentArray[0], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
-let lanaAli = new Employee("1001", "Lana Ali", departmentArray[3], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
-let tamaraAyoub = new Employee("1002", "Tamara Ayoub", departmentArray[1], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
-let safiWalid = new Employee("1003", "Safi Walid", departmentArray[0], levelArray[1], "https://www.w3schools.com/howto/img_avatar.png");
-let omarZaid = new Employee("1004", "Omar Zaid", departmentArray[2], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
-let ranaSaleh = new Employee("1005", "Rana Saleh", departmentArray[2], levelArray[0], "https://www.w3schools.com/howto/img_avatar.png");
-let hadiAhmad = new Employee("1006", "Hadi Ahmad", departmentArray[3], levelArray[1], "https://www.w3schools.com/howto/img_avatar.png");
-print();
+    // let ghaziSamer = new Employee("1000", "Ghazi Samer", departmentArray[0], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
+    // let lanaAli = new Employee("1001", "Lana Ali", departmentArray[3], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
+    // let tamaraAyoub = new Employee("1002", "Tamara Ayoub", departmentArray[1], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
+    // let safiWalid = new Employee("1003", "Safi Walid", departmentArray[0], levelArray[1], "https://www.w3schools.com/howto/img_avatar.png");
+    // let omarZaid = new Employee("1004", "Omar Zaid", departmentArray[2], levelArray[2], "https://www.w3schools.com/howto/img_avatar.png");
+    // let ranaSaleh = new Employee("1005", "Rana Saleh", departmentArray[2], levelArray[0], "https://www.w3schools.com/howto/img_avatar.png");
+    let hadiAhmad = new Employee("1006", "Hadi Ahmad", departmentArray[3], levelArray[1], "https://www.w3schools.com/howto/img_avatar.png");
+    print();
+    // save after everytime i add new data
+
 
 function getUniqueID() {
     return Date.now();
@@ -106,5 +124,18 @@ function print(){
     for (let i = 0; i < emplyeesArray.length; i++) {
         emplyeesArray[i].calculateSalary();
         emplyeesArray[i].render();
+       
     }
 }
+
+getLocalStorageData();
+
+
+// function add2localStorage(){
+//     var retrievedObject = localStorage.getItem('arrayOfObjectlocalStorage');
+//     var r = JSON.parse(retrievedObject);
+//     for(let i = 0 ; i < r.length ; i++){
+//         arrayOfObject.push(r[i]);
+//     }
+//     localStorage.setItem('arrayOfObjectlocalStorage', JSON.stringify(arrayOfObject));
+// }
